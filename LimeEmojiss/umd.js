@@ -4,7 +4,7 @@ LimeEmojiss.repoApiUrl = 'https://api.github.com/repos/LimeWebb/emojis/contents/
 
 LimeEmojiss.getEmojiSet = async function(emojiSet='lime1111') {
   try {
-    const directories = await (await fetch(repoApiUrl)).json()
+    const directories = await (await fetch(LimeEmojiss.repoApiUrl)).json()
       .filter((file) => file.type === 'dir')
       .map((directory) => directory.name)
     
