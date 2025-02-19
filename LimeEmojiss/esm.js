@@ -27,6 +27,6 @@ export async function getEmojiByName(name='lime1111_dizzy') {
   const split = name.split('_')
   const setName = split[0]
   const emojis = await getEmojiSet(setName)
-  const emoji = emojis.find((e) => e.name == split[1]).url
+  const emoji = emojis.find((e) => e.name == split[1])?.url
   return emoji ?? ''
 }
