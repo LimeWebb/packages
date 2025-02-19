@@ -2,15 +2,13 @@ export const repoApiUrl = 'https://api.github.com/repos/LimeWebb/emojis/contents
 
 export async function getEmojiSet(emojiSet='lime1111') {
   try {
-    const directories = await (await fetch(repoApiUrl)).json()
-      .filter((file) => file.type === 'dir')
-      .map((directory) => directory.name)
+    const directories = await (await fetch(`${repoApiUrl}${emojiSet}`)).json()
+      .filter((file) => file.type === 'file')
+    
+    if(!directories) return []
     
     if(Array.isArray(directories)) {
-      const dir = directories.find((d) => d.name == emojiSet)
-      if(!dir) return []
-      const emojis = await (await fetch(dir)).json()
-        .filter((emoji) => emoji.type === 'file')
+      const emojis = directories
         .map((emoji) => ({
           name: emoji.name.replace(/(\.png)$/, ''),
           url: emoji.download_url ?? null
